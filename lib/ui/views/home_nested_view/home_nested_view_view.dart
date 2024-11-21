@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-
 import 'home_nested_view_viewmodel.dart';
 
-class HomeNestedViewView extends StackedView<HomeNestedViewViewModel> {
+class HomeNestedViewView extends StatelessWidget {
   const HomeNestedViewView({Key? key}) : super(key: key);
 
   @override
-  Widget builder(
-    BuildContext context,
-    HomeNestedViewViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomeNestedViewViewModel>.reactive(
+      viewModelBuilder: () => HomeNestedViewViewModel(),
+      builder: (context, model, child) => const Scaffold(
+        
+        body:  Center(
+          child: Text('Welcome to Nested Home View'),
+        ),
       ),
     );
   }
-
-  @override
-  HomeNestedViewViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeNestedViewViewModel();
 }

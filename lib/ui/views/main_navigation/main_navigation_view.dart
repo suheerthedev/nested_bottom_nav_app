@@ -1,28 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-
+import 'package:nested_bottom_nav_app/ui/views/home/home_view.dart';
+import 'package:nested_bottom_nav_app/ui/views/profile/profile_view.dart';
+import 'package:nested_bottom_nav_app/ui/views/settings/settings_view.dart';
 import 'main_navigation_viewmodel.dart';
 
-class MainNavigationView extends StackedView<MainNavigationViewModel> {
-  const MainNavigationView({Key? key}) : super(key: key);
-
+class MainNavigationView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    MainNavigationViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<MainNavigationViewModel>.reactive(
+      viewModelBuilder: () => MainNavigationViewModel(),
+      builder: (context, model, child) => Scaffold(
+        body: IndexedStack(
+          index: model.currentIndex,
+          children: const [
+            HomeView(),
+            ProfileView(),
+            SettingsView(),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: model.currentIndex,
+          onTap: model.setIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
+        ),
       ),
     );
   }
-
-  @override
-  MainNavigationViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      MainNavigationViewModel();
 }

@@ -12,12 +12,11 @@ class SettingsView extends StackedView<SettingsViewModel> {
     SettingsViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
-    );
+    return const Scaffold(
+        body: SafeArea(
+            child: Center(
+      child: Text("Settings Page"),
+    )));
   }
 
   @override

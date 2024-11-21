@@ -1,36 +1,13 @@
-import 'package:nested_bottom_nav_app/app/app.bottomsheets.dart';
-import 'package:nested_bottom_nav_app/app/app.dialogs.dart';
-import 'package:nested_bottom_nav_app/app/app.locator.dart';
-import 'package:nested_bottom_nav_app/ui/common/app_strings.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:nested_bottom_nav_app/ui/views/home_nested_view/home_nested_view_view.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  String get counterLabel => 'Counter is: $_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
-  }
-
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
+  void navigateToNestedHome() {
+    navigatorKey.currentState?.push(
+      MaterialPageRoute(builder: (context) => const HomeNestedViewView()),
     );
   }
 }
